@@ -1,7 +1,1 @@
-- zoom_oauth_credentials_list
-- zoom_oauth_credentials_create
-- zoom_oauth_credentials_retrieve
-- zoom_oauth_credentials_destroy
-- zoom_oauth_credentials_access_token_retrieve
-- zoom_oauth_credentials_sync_meetings_create
-- zoom_oauth_credentials_validate_create
+[]
