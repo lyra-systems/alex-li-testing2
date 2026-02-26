@@ -1,0 +1,6 @@
+- create_reseller_program_v1
+- modify_reseller_program_v1
+- end_reseller_program_v1
+- get_reseller_status_v1
+- pause_reseller_program_v1
+- resume_reseller_program_v1

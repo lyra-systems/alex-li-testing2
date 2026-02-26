@@ -1,0 +1,565 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Advertising",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://partner-api.yelp.com/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {}
+      },
+      "basic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "To authenticate API calls with the API Key, set the Authorization HTTP header value as `Bearer API_KEY`.\n\nExample: `Bearer 23813239889e947efd3e787cc41b0b839f442a85c5bfd30bd4b9a85ec3a54d5cae4d52b37ff52e64deb9c83bd04883812a6cebde04f2f25752f31be0ac74b514`.\n\nYou can create or find your API Key at [yelp.com](https://www.yelp.com/developers/v3/manage_app).\n"
+      }
+    },
+    "schemas": {
+      "JobCreatedProgramResponses": {
+        "200": {
+          "$ref": "#/components/schemas/JobCreatedProgram200Response"
+        },
+        "400": {
+          "$ref": "#/components/schemas/Empty400Response"
+        }
+      },
+      "GetJobResponses": {
+        "200": {
+          "$ref": "#/components/schemas/JobStatusProgram200Response"
+        },
+        "400": {
+          "$ref": "#/components/schemas/Empty400Response"
+        }
+      },
+      "PauseResumeProgramResponses": {
+        "202": {
+          "$ref": "#/components/schemas/Empty400Response",
+          "description": "202"
+        },
+        "400": {
+          "$ref": "#/components/schemas/Empty400Response"
+        }
+      },
+      "DIField": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "requested_value": {
+            "type": "string"
+          }
+        }
+      },
+      "JobCreatedProgram200Response": {
+        "description": "200",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "job_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "job_id"
+              ]
+            },
+            "examples": {
+              "Result": {
+                "value": {
+                  "job_id": "prvtN-nilb4mUynGGgKuBQ"
+                }
+              }
+            }
+          }
+        }
+      },
+      "JobStatusProgram200Response": {
+        "description": "200",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "completed_at": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "business_results": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string"
+                      },
+                      "identifier_type": {
+                        "type": "string"
+                      },
+                      "identifier": {
+                        "type": "string"
+                      },
+                      "update_results": {
+                        "type": "object",
+                        "properties": {
+                          "program_added": {
+                            "type": "object",
+                            "properties": {
+                              "start": {
+                                "$ref": "#/components/schemas/DIField"
+                              },
+                              "program_name": {
+                                "$ref": "#/components/schemas/DIField"
+                              },
+                              "end": {
+                                "$ref": "#/components/schemas/DIField"
+                              },
+                              "program_id": {
+                                "$ref": "#/components/schemas/DIField"
+                              },
+                              "yelp_business_id": {
+                                "$ref": "#/components/schemas/DIField"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "Result": {
+                "value": {
+                  "status": "PROCESSING",
+                  "completed_at": null,
+                  "created_at": "2018-11-26T22:50:38+00:00",
+                  "business_results": [
+                    {
+                      "status": "COMPLETED",
+                      "identifier_type": "BUSINESS",
+                      "identifier": "pzni3DBjMPxrBsbKbf2gbQ",
+                      "update_results": {
+                        "program_added": {
+                          "start": {
+                            "status": "COMPLETED",
+                            "requested_value": "2018-12-25"
+                          },
+                          "program_name": {
+                            "status": "COMPLETED",
+                            "requested_value": "BP"
+                          },
+                          "end": {
+                            "status": "COMPLETED",
+                            "requested_value": "2018-12-30"
+                          },
+                          "program_id": {
+                            "status": "COMPLETED",
+                            "requested_value": "J-f-JohjGMmirSqJEn_Gig"
+                          },
+                          "yelp_business_id": {
+                            "status": "COMPLETED",
+                            "requested_value": "pzni3DBjMPxrBsbKbf2gbQ"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Empty400Response": {
+        "description": "400",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object"
+            },
+            "examples": {
+              "Result": {
+                "value": {}
+              }
+            }
+          }
+        }
+      },
+      "ProgramName": {
+        "type": "string",
+        "description": "Indicates the type of program you want to enable.\nPossible values are: `BP` Branded Profile, `EP` – Enhanced Profile, `RCA` (Remove Competitor Ads), `CTA` (Call To Action), `SLIDESHOW` (Slideshow), `BH` (Business Highlights), `VL` (Verified License), `LOGO`, `PORTFOLIO`\n",
+        "enum": [
+          "BP",
+          "EP",
+          "RCA",
+          "CTA",
+          "SLIDESHOW",
+          "BH",
+          "VL",
+          "LOGO",
+          "PORTFOLIO"
+        ]
+      },
+      "StartDescription": {
+        "description": "Start date for the specified program. The date format is YYYY-MM-DD format (e.g., 2016-01-01). Programs will start at 12:00am PST for a given start date. If no start date is set, then the program will start immediately.\n"
+      },
+      "EndDescription": {
+        "description": "End date for the specified program. The date format is YYYY-MM-DD format (e.g., 2016-01-31). Programs will end at 11:59pm PST for a given end date. If no end date is set, then the program will run indefinitely until it is terminated via the Advertising API.\n"
+      }
+    }
+  },
+  "security": [
+    {
+      "basic": []
+    }
+  ],
+  "paths": {
+    "/v1/reseller/program/create": {
+      "post": {
+        "summary": "Create Program",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Creates a new program for a Yelp business\n",
+        "operationId": "create_reseller_program_v1",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Query Params",
+            "description": "Create a CPC or other Yelp Program for a Yelp business",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object",
+              "oneOf": [
+                {
+                  "properties": {
+                    "business_id": {
+                      "type": "string",
+                      "description": "Yelp Encrypted Business ID."
+                    },
+                    "program_name": {
+                      "type": "string",
+                      "description": "Must be \"CPC\" for CPC programs.",
+                      "enum": [
+                        "CPC"
+                      ]
+                    },
+                    "start": {
+                      "$ref": "#/components/schemas/StartDescription",
+                      "type": "string"
+                    },
+                    "end": {
+                      "$ref": "#/components/schemas/EndDescription",
+                      "type": "string"
+                    },
+                    "budget": {
+                      "type": "integer",
+                      "description": "Monthly budget in cents. For a monthly budget of $50.00, please input “5000”. Value must be greater than or equal to $25 dollars."
+                    },
+                    "currency_code": {
+                      "type": "string",
+                      "description": "ISO 4217 Currency Code. Default is USD"
+                    },
+                    "is_autobid": {
+                      "type": "boolean",
+                      "description": "If field is set to true, then Yelp will autobid. Set to false if using max_bid"
+                    },
+                    "max_bid": {
+                      "type": "integer",
+                      "description": "Maximum bid value in cents. *Value must be greater than or equal to $0.50 or \"50\"*. This field is required if is_autobid is false. * If you want to bid a maximum of $25.50, please use a value of “2550” cents and not “25.50” which will result in error."
+                    },
+                    "pacing_method": {
+                      "type": "string",
+                      "description": "Possible values are: \"paced\" (default if is_autobid=true), \"unpaced\" (default if max_bid is set) - cannot be used if is_autobid=true * . \"unpaced\" will attempt to spend the budget as fast as possible.",
+                      "enum": [
+                        "paced",
+                        "unpaced"
+                      ]
+                    },
+                    "fee_period": {
+                      "type": "string",
+                      "description": "Possible values are: \"CALENDAR_MONTH\", \"ROLLING_MONTH\". The fee_period determines the time frame for the CPC Program. If CALENDAR_MONTH, then budgets will reset at the 1st of every month. If ROLLING_MONTH, then budgets will reset every 30 days. Default is CALENDAR_MONTH.",
+                      "enum": [
+                        "CALENDAR_MONTH",
+                        "ROLLING_MONTH"
+                      ]
+                    },
+                    "ad_categories": {
+                      "type": "array",
+                      "description": "You are able to choose any of the categories of the specified business and run the CPC campaign for only these categories.\n\nYou get the categories of a business using the [Get business by ID](https://docs.developer.yelp.com/reference/v3_business_info) endpoint.\nUse the `alias` of the categories (field `categories[].alias`).\n\n\nExample: If the business has the categories *hvac* and *plumbing*, you can run two different campaigns for each category with a different budget each.\n",
+                      "items": {
+                        "type": "string",
+                        "description": "Business category alias."
+                      }
+                    }
+                  },
+                  "required": [
+                    "business_id",
+                    "program_name",
+                    "start",
+                    "end",
+                    "budget"
+                  ],
+                  "type": "object",
+                  "title": "Create CPC Program",
+                  "description": "Query parameters for all program types except CPC."
+                },
+                {
+                  "properties": {
+                    "business_id": {
+                      "$ref": "#/paths/~1v1~1reseller~1program~1create/post/parameters/0/schema/oneOf/0/properties/business_id"
+                    },
+                    "program_name": {
+                      "$ref": "#/components/schemas/ProgramName"
+                    },
+                    "start": {
+                      "$ref": "#/components/schemas/StartDescription",
+                      "type": "string"
+                    },
+                    "end": {
+                      "$ref": "#/components/schemas/EndDescription",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "business_id",
+                    "program_name",
+                    "start",
+                    "end"
+                  ],
+                  "type": "object",
+                  "title": "Create Other Programs",
+                  "description": "Query parameters for all program types except CPC."
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/JobCreatedProgramResponses"
+        }
+      }
+    },
+    "/v1/reseller/program/{program_id}/edit": {
+      "post": {
+        "summary": "Modify Program",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Modifies an existing program for a Yelp business\n",
+        "operationId": "modify_reseller_program_v1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "program_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The program_id that needs to be modified."
+          },
+          {
+            "in": "query",
+            "description": "Start date for the specified program",
+            "name": "start",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "description": "End date for the specified program",
+            "name": "end",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Monthly budget in cents. For a monthly budget of $50.00, please input “5000”. Value must be greater than or equal to $25 dollars.",
+            "name": "budget",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Maximum bid value in cents. Can only be changed if program is using max_bid option. * The minimum value is $0.50 which is \"50\"",
+            "name": "max_bid",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Schedule an upcoming budget change for campaign.",
+            "name": "future_budget_date",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "description": "Possible values are: \"paced\" \"unpaced\" * \"strict_paced\"",
+            "name": "pacing_method",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "paced",
+                "unpaced"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "ad_categories",
+            "description": "You are able to choose any of the categories of the specified business and run the CPC campaign for only these categories.\n\nYou get the categories of a business using the [Get business by ID](https://docs.developer.yelp.com/reference/v3_business_info) endpoint.\nUse the `alias` of the categories (field `categories[].alias`).\n\n\nExample: If the business has the categories *hvac* and *plumbing*, you can run two different campaigns for each category with a different budget each.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Business category alias."
+              }
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/JobCreatedProgramResponses"
+        }
+      }
+    },
+    "/v1/reseller/program/{program_id}/end": {
+      "post": {
+        "summary": "Terminate Program",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Deletes an existing program for a Yelp business",
+        "operationId": "end_reseller_program_v1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "program_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The program_id that needs to be modified."
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/JobCreatedProgramResponses"
+        }
+      }
+    },
+    "/v1/reseller/status/{job_id}": {
+      "get": {
+        "summary": "Program Status",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Obtain the status of an existing ingestion job",
+        "operationId": "get_reseller_status_v1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Job receipt ID"
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/GetJobResponses"
+        }
+      }
+    },
+    "/program/{program_id}/pause/v1": {
+      "post": {
+        "summary": "Pause Program",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Pauses a running CPC program. This endpoint requires special configuration, please get in touch if you would like access.",
+        "operationId": "pause_reseller_program_v1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "program_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Program ID"
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/PauseResumeProgramResponses"
+        }
+      }
+    },
+    "/program/{program_id}/resume/v1": {
+      "post": {
+        "summary": "Resume Program",
+        "tags": [
+          "Advertising"
+        ],
+        "description": "Resume a paused CPC program. This endpoint requires special configuration, please get in touch if you would like access.",
+        "operationId": "resume_reseller_program_v1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "program_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Program ID"
+          }
+        ],
+        "responses": {
+          "$ref": "#/components/schemas/PauseResumeProgramResponses"
+        }
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": false,
+    "samples-enabled": true
+  }
+}
