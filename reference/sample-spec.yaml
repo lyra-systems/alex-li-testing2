@@ -121,7 +121,7 @@ components:
 paths:
   /auth/register:
     post:
-      summary: Create a new user account
+      summary: Create a new user account asdasdasdasd
       requestBody:
         required: true
         content:
@@ -145,6 +145,7 @@ paths:
           description: User created
         '400':
           description: Invalid input
+      description: aasdasdasda
   /auth/login:
     post:
       summary: Login and get access token
