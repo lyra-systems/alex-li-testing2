@@ -167,6 +167,7 @@ paths:
           description: Authenticated successfully
         '401':
           description: Unauthorized
+      description: sadfasdfasdfas
   /products:
     get:
       summary: List all products with filters
