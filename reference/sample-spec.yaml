@@ -145,6 +145,7 @@ paths:
           description: User created
         '400':
           description: Invalid input
+      description: test
   /auth/login:
     post:
       summary: Login and get access token
