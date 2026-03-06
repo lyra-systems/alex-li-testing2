@@ -121,7 +121,7 @@ components:
 paths:
   /auth/register:
     post:
-      summary: Create a new user account asdasdas
+      summary: Create a new user account testtest
       requestBody:
         required: true
         content:
