@@ -147,7 +147,7 @@ paths:
           description: Invalid input
   /auth/login:
     post:
-      summary: Login and get access token
+      summary: Login and get access token asdasdas
       requestBody:
         required: true
         content:
